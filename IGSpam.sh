@@ -34,23 +34,23 @@
 csrftoken=$(curl https://www.instagram.com/accounts/login/ajax -L -i -s | grep "csrftoken" | cut -d "=" -f2 | cut -d ";" -f1)
 
 
-login_user() {
+logininstagram() {
 
-if [[ "$default_username" == "" ]]; then
+if [[ "$yourusername" == "" ]]; then
 read -p $'\033[93m ┌─ \033[96m[✗]─[username@instagram]: \e[0m' username
 else
-username="${username:-${default_username}}"
+username="${username:-${yourusername}}"
 fi
 
-if [[ "$default_password" == "" ]]; then
-read -s -p $'\033[93m └─ \033[96m[✗]─[password@instagram]: \e[0m' password
+if [[ "$yourpassword" == "" ]]; then
+read -p $'\033[93m └─ \033[96m[✗]─[password@instagram]: \e[0m' password
 else
-password="${password:-${default_password}}"
+password="${password:-${yourpassword}}"
 fi
 
 check_login=$(curl -c cookies.txt 'https://www.instagram.com/accounts/login/ajax/' -H 'Cookie: csrftoken='$csrftoken'' -H 'X-Instagram-AJAX: 1' -H 'Referer: https://www.instagram.com/' -H 'X-CSRFToken:'$csrftoken'' -H 'X-Requested-With: XMLHttpRequest' --data 'username='$username'&password='$password'&intent' -L --compressed -s | grep -o '"authenticated": true')
 
-if [[ "$check_login" == *'"authenticated": true'* ]]; then
+if [[ "$ck_login" == *'"authenticated": true'* ]]; then
 
 printf "\n\033[91m✡\033[96m Login Successful \033[91m✡\n"
 else
@@ -58,12 +58,12 @@ printf "\n\033[91m[!] Login Information Incorrect, Resetting.\n\e[0m"
 sleep 3
 reset
 banner
-login_user
+logininstagram
 fi
 
 }
 
-config() {
+writemessage() {
 
 IFS=$'\n'
 safeamount="10"
@@ -76,7 +76,7 @@ amount="${spamamount:-${safeamount}}"
 }
 
 
-account() {
+selectaccount() {
 
 read -p $'\033[93m └─ \033[96m[✗]─[target@instagram]: ' accountuser
 
@@ -87,7 +87,7 @@ sleep 1
 account
 fi
 
-curl -s -L https://www.instagram.com/$accountuser | grep  -o '"id":"..................[0-9]' | cut -d ":" -f2 | tr -d '"' > media_id
+curl -s -L https://www.instagram.com/$accountuser | grep  -o '"id":"..................[0-9]' | cut -d ":" -f2 | tr -d '"' > post_id
 postnumber="1"
 printf "\033[91m✡\033[96m Account Selected Successful \033[91m✡\n"
 printf "\033[93m\n   Darker Text = Latest Post\n"
@@ -97,15 +97,15 @@ printf "\033[93m│  \033[91mPost: \033[37m%s \033[93m  │\e[1;77m %s\n" $id $p
 let postnumber++
 done
 printf "\033[93m└──────────────────────────────┘\n"
-default_post="0"
+latestpost="0"
 read -p $'\033[93m └─ \033[96m[✗]─[postselect@instagram]: ' post
-post="${post:-${default_post}}"
+post="${post:-${latestpost}}"
 
-media_id=$(sed ''$post'q;d' media_id)
+post_id=$(sed ''$post'q;d' media_id)
 
 }
 
-flood() {
+spammer() {
 
 ending=.
 for i in $(seq 1 $amount); do
@@ -144,11 +144,10 @@ printf "└───────────────────────
 
 banner
 dependencies
-login_user
-config
-account
-flood
-
+logininstagram
+writemessage
+selectaccount
+spammer
 
 
 
