@@ -48,7 +48,7 @@ else
 password="${password:-${yourpassword}}"
 fi
 
-check_login=$(curl -c cookies.txt 'https://www.instagram.com/accounts/login/ajax/' -H 'Cookie: csrftoken='$csrftoken'' -H 'X-Instagram-AJAX: 1' -H 'Referer: https://www.instagram.com/' -H 'X-CSRFToken:'$csrftoken'' -H 'X-Requested-With: XMLHttpRequest' --data 'username='$username'&password='$password'&intent' -L --compressed -s | grep -o '"authenticated": true')
+ck_login=$(curl -c cookies.txt 'https://www.instagram.com/accounts/login/ajax/' -H 'Cookie: csrftoken='$csrftoken'' -H 'X-Instagram-AJAX: 1' -H 'Referer: https://www.instagram.com/' -H 'X-CSRFToken:'$csrftoken'' -H 'X-Requested-With: XMLHttpRequest' --data 'username='$username'&password='$password'&intent' -L --compressed -s | grep -o '"authenticated": true')
 
 if [[ "$ck_login" == *'"authenticated": true'* ]]; then
 
@@ -87,7 +87,7 @@ sleep 1
 account
 fi
 
-curl -s -L https://www.instagram.com/$accountuser | grep  -o '"id":"..................[0-9]' | cut -d ":" -f2 | tr -d '"' > post_id
+curl -s -L https://www.instagram.com/$accountuser | grep  -o '"id":"..................[0-9]' | cut -d ":" -f2 | tr -d '"' > media_id
 postnumber="1"
 printf "\033[91m✡\033[96m Account Selected Successful \033[91m✡\n"
 printf "\033[93m\n   Darker Text = Latest Post\n"
