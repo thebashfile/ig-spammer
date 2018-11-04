@@ -21,7 +21,7 @@ Discord: SQLFail#6868
 ```
  - $ git clone https://github.com/sprxsh/ig-spammer/
  - $ cd ig-spammer
- - $ sudo python IGSpam.sh
+ - $ sudo bash IGSpam.sh
 ```
 
 ### How it works?
