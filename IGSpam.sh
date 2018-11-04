@@ -43,7 +43,7 @@ username="${username:-${yourusername}}"
 fi
 
 if [[ "$yourpassword" == "" ]]; then
-read -p $'\033[93m └─ \033[96m[✗]─[password@instagram]: \e[0m' password
+read -s -p $'\033[93m └─ \033[96m[✗]─[password@instagram]: \e[0m' password
 else
 password="${password:-${yourpassword}}"
 fi
