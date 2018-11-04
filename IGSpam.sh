@@ -101,7 +101,7 @@ latestpost="0"
 read -p $'\033[93m └─ \033[96m[✗]─[postselect@instagram]: ' post
 post="${post:-${latestpost}}"
 
-post_id=$(sed ''$post'q;d' media_id)
+media_id=$(sed ''$post'q;d' media_id)
 
 }
 
