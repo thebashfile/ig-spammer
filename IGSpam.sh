@@ -135,7 +135,7 @@ printf "██║██║   ██║╚════╝╚════██║
 printf "██║╚██████╔╝      ███████║██║     ██║  ██║██║ ╚═╝ ██║\n"
 printf "╚═╝ ╚═════╝       ╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝     ╚═╝\n"
 printf "              \033[36mBy: @sprx.sh | <3                      \n"
-date +"%r%n%D - %A, %B %C" |lolcat
+date +"%r%n%D - %A, %B %d" |lolcat
 printf "\033[93m┌─────────────────────────────────────────────────────────────────┐\n"
 printf "│ \033[91m[Instagram] \033[37m- https://www.instagram.com/sprx.sh/\033[93m                │\n"
 printf "│ \033[91m[Updater] \033[37m- https://github.com/sprxsh/ig-spammer\033[93m                │\n"
